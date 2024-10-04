@@ -1,0 +1,159 @@
+Query: create depertment (dept_77005) table with (deptId,deptName)
+
+SQL>
+
+create table dept_77005
+(
+deptId number(5) primary key,
+deptName varchar2(5)
+);
+
+output: table created
+_____________________________________________________________________________________
+Query: create employee (empl_77005) table with (empId,empName,salary, joinDate, deptId)
+
+SQL>
+
+create table empl_775
+ (
+ empId  number(5) primary key,
+ empName varchar(10),
+ salary  number(10,2),
+ joinDate date,
+ deptId number(5),
+ foreign key (deptId) references dept_77005(deptId)
+ );
+
+output: table created
+
+__________________________________________________________________________________________
+
+Query: insert A ROW into dept_77005 table
+
+SQL>
+
+insert into dept_77005 (deptId,deptName) values (1,'HR');
+
+
+output: 1 row created
+__________________________________________________________________________________________
+
+
+Query: insert MULTIPLE ROW into dept_77005 table
+
+SQL>
+
+insert ALL
+into dept_77005 (deptId,deptName) values (2,'ACC') 
+into dept_77005 (deptId,deptName) values (3,'AI')
+into dept_77005 (deptId,deptName) values (4,'AIDS')
+into dept_77005 (deptId,deptName) values (5,'AIML')
+into dept_77005 (deptId,deptName) values (6,'CSE')
+into dept_77005 (deptId,deptName) values (7,'CYBER')
+select * from DUAL;
+
+output: 6 row created
+
+__________________________________________________________________________________________
+
+Query: insert A ROW into empl_775 table
+
+SQL>
+
+insert into empl_775 (empId,empName,salary, joinDate, deptId) values (1,'john',15000,to_date('27-09-2024','dd-mm-yyyy'),1);
+
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C0011995) violated - parent key not
+found
+
+output: 1 row created
+
+__________________________________________________________________________________________
+
+Query: insert MULTIPLE ROW into empl_775 table
+
+
+SQL>
+
+insert ALL
+into empl_775 (empId,empName,salary, joinDate, deptId) values (2,'marc',21000,to_date('27-09-2024','dd-mm-yyyy'),2)
+into empl_775 (empId,empName,salary, joinDate, deptId) values (3,'man',22000,to_date('27-09-2024','dd-mm-yyyy'),3)
+into empl_775 (empId,empName,salary, joinDate, deptId) values (4,'eve',15000,to_date('27-09-2024','dd-mm-yyyy'),4)
+into empl_775 (empId,empName,salary, joinDate, deptId) values (5,'adam',24000,to_date('27-09-2024','dd-mm-yyyy'),5)
+select * from DUAL;
+
+output: 4 row created
+
+__________________________________________________________________________________________
+
+
+Query:  like operation
+ 
+SQL>
+ select * from empl_775
+  where empname  like 'm%';
+
+
+output:
+
+     EMPID EMPNA     SALARY JOINDATE      DEPTID
+---------- ----- ---------- --------- ----------
+         2 marc       21000 27-SEP-24          2
+         3 man        22000 27-SEP-24          3
+
+
+__________________________________________________________________________________________
+
+
+Query:  group by 
+
+SQL>
+
+
+select empName, sum(salary) from empl_775
+group by empName;
+
+output:
+
+EMPNA SUM(SALARY)
+----- -----------
+eve         15000
+marc        21000
+john        15000
+man         22000
+adam        24000
+
+__________________________________________________________________________________________
+
+
+select sum(salary) from empl_775
+group by empName;
+
+
+output:
+SUM(SALARY)
+-----------
+      15000
+      21000
+      15000
+      22000
+      24000
+
+
+__________________________________________________________________________________________
+
+Query: alter empl_775 table
+
+
+SQL> 
+alter table empl_775
+modify empName varchar(20);
+
+output:  Table altered.
+
+__________________________________________________________________________________________
+
+
+Query:
+
+
